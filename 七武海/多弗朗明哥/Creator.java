@@ -2,6 +2,9 @@ package com.demo;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -17,9 +20,18 @@ public class Creator {
 		// f.run();
 		
 		SecondWay s = new SecondWay();
-		FutureTask<Integer> future = new FutureTask<>(s);// FutureTask -> parent Runnable.
-		new Thread(future).start();
-		System.out.println(future.get());
+		FutureTask<Integer> futureTask = new FutureTask<>(s);// FutureTask -> parent Runnable.
+		new Thread(futureTask).start();
+		System.out.println(futureTask.get());
+		
+		ExecutorService es = Executors.newCachedThreadPool();
+		Future<Integer> temp = es.submit(s);// submit callable
+		System.out.println(temp.get());
+		
+		es.submit(futureTask);// submit futureTask
+		System.out.println(futureTask.get());
+		
+		es.shutdown();
 		
 	}
 }
@@ -40,7 +52,7 @@ class SecondWay implements Callable<Integer> {
 
 	@Override
 	public Integer call() throws Exception {
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		return 5201314;
 	}
 	
