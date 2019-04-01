@@ -1,0 +1,14 @@
+jps -l
+jstat -gc 10788
+jmap -heap 10788
+jstack -l 10788 
+
+jmap -dump:live,format=b,file=dump.hprof 10788
+Memory Analyzer Tool
+
+jconsole 10788
+jvisualvm 10788
+
+
+
+
