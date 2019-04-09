@@ -1,4 +1,6 @@
 // 001	两数之和	每天一算：Two Sum
+// ArrayFlag & Map.
+// O(n) 
 public int[] twoSum(int[] nums, int target) {
     Map<Integer, Integer> map = new HashMap<>();
     for (int i = 0; i < nums.length; i++) {
@@ -20,25 +22,59 @@ public int[] twoSum(int[] nums, int target) {
  * }
  */
 // 002	两个数字相加	
-public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-    ListNode dummyHead = new ListNode(0);
-    ListNode p = l1, q = l2, curr = dummyHead;
-    int carry = 0;
-    while (p != null || q != null) {
-        int x = (p != null) ? p.val : 0;
-        int y = (q != null) ? q.val : 0;
-        int sum = carry + x + y;
-        carry = sum / 10;
-        curr.next = new ListNode(sum % 10);
-        curr = curr.next;
-        if (p != null) p = p.next;
-        if (q != null) q = q.next;
-    }
-    if (carry > 0) {
-        curr.next = new ListNode(carry);
-    }
-    return dummyHead.next;
+package com.algorithm;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+		
+		// 4-6-9 964
+		ListNode l1 = new ListNode(4);
+		l1.next = new ListNode(6);
+		l1.next.next = new ListNode(9);
+		
+		ListNode l2 = new ListNode(4);
+		l2.next = new ListNode(6);
+		l2.next.next = new ListNode(9);
+		
+		ListNode res = addTwoNumbers(l1, l2);// 8-2-9-1 1928 OK.
+		while (res!=null) {
+			System.out.println(res.val);
+			res = res.next;
+		}
+		
+	}
+	
+	public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+	    ListNode dummyHead = new ListNode(0);// virtual head node
+	    ListNode p = l1, q = l2, curr = dummyHead;
+	    int carry = 0;
+	    while (p != null || q != null) {
+	        int x = (p != null) ? p.val : 0;
+	        int y = (q != null) ? q.val : 0;
+	        int sum = carry + x + y;
+	        carry = sum / 10;
+	        curr.next = new ListNode(sum % 10);
+	        curr = curr.next;
+	        if (p != null) p = p.next;
+	        if (q != null) q = q.next;
+	    }
+	    if (carry > 0) {
+	        curr.next = new ListNode(carry);
+	    }
+	    return dummyHead.next;
+	}
+	
 }
+
+class ListNode {
+	int val;
+	ListNode next;
+	ListNode(int x) {
+		val = x;
+	}
+}
+
 
 // 003	无重复字符的最长子串
 public class Solution {
@@ -261,6 +297,14 @@ class Solution {
 
 // 094	二叉树的中序遍历
 // 基于栈的中序遍历
+// 中序 ： 左 - 顶 - 右
+// push pop isEmpty
+// public class TreeNode {
+//     int val;
+//     TreeNode left;
+//     TreeNode right;
+//     TreeNode(int x) { val = x; }
+// }
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
@@ -283,6 +327,9 @@ class Solution {
 
 // 102	二叉树的层序遍历
 // 利用队列实现二叉树的层次遍历
+// poll & offer | peek_top1
+// LinkedList implement Queue.
+// Queue<TreeNode>
 public List<List<Integer>> levelOrder(TreeNode root) {
     if(root == null)
         return new ArrayList<>();
@@ -310,6 +357,9 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 // 103	二叉树的锯齿形层次遍历
 // 有一种东西，既可以是栈，又可是队列，它有着双重身份，它的名字叫做——双端队列。c++ 对应的数据结构是 deque.
 // 使用一个双端队列实现。
+// Deque是Queue的子接口,我们知道Queue是一种队列形式,而Deque则是双向队列,它支持从两个端点方向检索和插入元素,因此Deque既可以支持FIFO形式也可以支持LIFO形式.
+// offerFirst peekFirst pollFirst (Last)
+// LinkedList implement Deque.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -367,6 +417,7 @@ class Solution {
 
 
 // 107	二叉树的层次遍历 II
+//  递归遍历 
 class Solution {
         public List<List<Integer>> levelOrderBottom(TreeNode root) {
             List<List<Integer>> lists = new ArrayList<>();
@@ -397,7 +448,7 @@ class Solution {
 
 
 // 136	只出现一次的数字
-// 异或
+// 异或（^） 同则0 ， 0和其他数异或得到其他数本身
 public int singleNumber(int[] nums) {
         int result = 0;
         for(int i = 0;i<nums.length;i++){
@@ -407,6 +458,9 @@ public int singleNumber(int[] nums) {
     }
 
 // 144	二叉树的前序遍历
+// 队列op 栈pp  |peek_both
+// Q:offer_poll  S:push_pop | peek_both.
+// Qop Spp...
 // 迭代（栈实现）：
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
@@ -465,6 +519,7 @@ public List<Integer> postorderTraversal(TreeNode root) {//非递归写法
 */
 /*
 //方法(3)
+// Stack<TreeNode>
 public List<Integer> postorderTraversal(TreeNode root) {
     List<Integer> res = new ArrayList<Integer>();
     if(root == null)
@@ -940,6 +995,8 @@ public void deleteNode(ListNode node) {
 
 // 279	完全平方数
 // 动态规划
+// Integer.MAX_VALUE
+// Arrays.fill
 import java.util.*;
 class Solution {
     public int numSquares(int n) {
@@ -1000,6 +1057,7 @@ class Solution {
 
 // 344	反转字符串
 // 面试的时候肯定不让用reverse()这种高级函数的。
+//  s.toCharArray()
 class Solution {
     public String reverseString(String s) {
         int i = 0;
@@ -1025,6 +1083,7 @@ class Solution {
 // 使用长度小的数组建立哈希表 lessSet，用于匹配查找，时间复杂度为 O(M), 最大额外空间复杂度为 O(M).
 // 循环长度大的数组，通过哈希表 lessSet 匹配与长度小的数组的交集，查找时间复杂度为 O(1)，总的时间复杂度为 O(N).
 // 总体的时间复杂度为 O(max(nums1.length, nums2.length)), 额外空间复杂度为 O(min(nums1.length, nums2.length)).
+// ans answer | res result.
 class Solution {
     public int[] intersection(int[] nums1, int[] nums2) {
         int len1 = nums1.length, len2 = nums2.length;
@@ -1165,6 +1224,7 @@ class Solution {
 
 
 // 445	两数相加 II
+// Stack<Integer>
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         Stack<Integer>stack1 = new Stack<>();
@@ -1203,6 +1263,8 @@ class Solution {
 
 
 // 447	回旋镖的数量
+// System.out.println(Math.pow(2.0, 3.0));//8.0
+// System.out.println(Math.sqrt(9));//3.0
 class Solution {
     public int numberOfBoomerangs(int[][] points) {
         int res = 0;
