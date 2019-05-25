@@ -1,0 +1,41 @@
+mkdir ~/work
+cd ~/work
+mkdir logs/ conf/
+
+####################################
+# conf/nginx.conf
+worker_processes  1;
+error_log logs/error.log;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location / {
+            default_type text/html;
+            content_by_lua_block {
+                ngx.say("<p>hello, world</p>")
+            }
+        }
+    }
+}
+
+#######################################################
+PATH=/usr/local/openresty/nginx/sbin:$PATH
+export PATH
+
+nginx -p `pwd`/ -c conf/nginx.conf
+
+#################################
+curl http://localhost:8080/
+http://localhost:8080/
+
+
+##nginx -s reload
+##ps -ef|grep nginx
+#nginx -c conf/nginx.conf -s reload -p `pwd`
+nginx -s reload -p `pwd`
+####################################
+
+Holy shit, This's ugly world!!!

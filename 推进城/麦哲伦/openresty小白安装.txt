@@ -1,0 +1,74 @@
+
+@@@安装方式1：
+前置条件
+yum install pcre-devel openssl-devel gcc curl
+
+解压
+tar -xzvf openresty-VERSION.tar.gz
+
+配置(可自定义)
+./configure
+
+编译
+make
+
+安装
+make install
+
+
+######################### other
+curl - download util.
+usage: curl xxx_url.
+
+=====================================================
+
+@@@安装方式2：
+配置仓库，以便升级更新
+yum install yum-utils
+yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+
+yum install openresty
+
+yum install openresty-resty
+yum --disablerepo="*" --enablerepo="openresty" list available
+
+
+
+[root@secure-spin-3 ~]# yum --disablerepo="*" --enablerepo="openresty" list available
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+Available Packages
+openresty-asan.x86_64                                                                                                                                               1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-asan-debuginfo.x86_64                                                                                                                                     1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-debug.x86_64                                                                                                                                              1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-debug-debuginfo.x86_64                                                                                                                                    1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-debuginfo.x86_64                                                                                                                                          1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-doc.noarch                                                                                                                                                1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-openssl-asan.x86_64                                                                                                                                       1.1.0j-2.el7                                                                                                                                    openresty
+openresty-openssl-asan-debuginfo.x86_64                                                                                                                             1.1.0j-2.el7                                                                                                                                    openresty
+openresty-openssl-asan-devel.x86_64                                                                                                                                 1.1.0j-2.el7                                                                                                                                    openresty
+openresty-openssl-debug.x86_64                                                                                                                                      1.1.0j-1.el7                                                                                                                                    openresty
+openresty-openssl-debug-debuginfo.x86_64                                                                                                                            1.1.0j-1.el7                                                                                                                                    openresty
+openresty-openssl-debug-devel.x86_64                                                                                                                                1.1.0j-1.el7                                                                                                                                    openresty
+openresty-openssl-debuginfo.x86_64                                                                                                                                  1.1.0j-1.el7                                                                                                                                    openresty
+openresty-openssl-devel.x86_64                                                                                                                                      1.1.0j-1.el7                                                                                                                                    openresty
+openresty-opm.noarch                                                                                                                                                1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-pcre-asan.x86_64                                                                                                                                          8.42-12.el7.centos                                                                                                                              openresty
+openresty-pcre-asan-debuginfo.x86_64                                                                                                                                8.42-12.el7.centos                                                                                                                              openresty
+openresty-pcre-asan-devel.x86_64                                                                                                                                    8.42-12.el7.centos                                                                                                                              openresty
+openresty-pcre-debuginfo.x86_64                                                                                                                                     8.42-1.el7.centos                                                                                                                               openresty
+openresty-pcre-devel.x86_64                                                                                                                                         8.42-1.el7.centos                                                                                                                               openresty
+openresty-valgrind.x86_64                                                                                                                                           1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-valgrind-debuginfo.x86_64                                                                                                                                 1.15.8.1-1.el7                                                                                                                                  openresty
+openresty-zlib-asan.x86_64                                                                                                                                          1.2.11-11.el7.centos                                                                                                                            openresty
+openresty-zlib-asan-debuginfo.x86_64                                                                                                                                1.2.11-11.el7.centos                                                                                                                            openresty
+openresty-zlib-asan-devel.x86_64                                                                                                                                    1.2.11-11.el7.centos                                                                                                                            openresty
+openresty-zlib-debuginfo.x86_64                                                                                                                                     1.2.11-3.el7.centos                                                                                                                             openresty
+openresty-zlib-devel.x86_64                                                                                                                                         1.2.11-3.el7.centos                                                                                                                             openresty
+perl-Lemplate.noarch                                                                                                                                                0.15-1.el7.centos                                                                                                                               openresty
+perl-Spiffy.noarch                                                                                                                                                  0.46-3.el7.centos                                                                                                                               openresty
+perl-Test-Base.noarch                                                                                                                                               0.88-2.el7.centos                                                                                                                               openresty
+perl-Test-LongString.noarch                                                                                                                                         0.17-1.el7.centos                                                                                                                               openresty
+perl-Test-Nginx.noarch                                                                                                                                              0.26-1.el7.centos                                                                                                                               openresty
+[root@secure-spin-3 ~]#
+
