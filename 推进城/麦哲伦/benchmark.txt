@@ -1,0 +1,13 @@
+ab -c10 -n50000 http://localhost:8080/ 
+on ThinkPad T400
+-c 并行度
+
+openresty				20k+ r/s
+nginx + php-fpm 5.2.8			4k r/s
+Erlang R14B2 raw gen_tcp server		8k r/s
+node.js v0.4.8 yields 			5.7k r/s
+
+每秒处理2W并发请求
+
+
+

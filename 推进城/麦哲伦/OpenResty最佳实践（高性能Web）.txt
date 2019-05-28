@@ -1,0 +1,14 @@
+https://moonbingbing.gitbooks.io/openresty-best-practices/
+## https://www.runoob.com/w3cnote/openresty-intro.html 
+
+#################################### 
+
+
+网络IO模型：
+select 轮询 （fd limit 1024）
+poll 轮询
+epoll 回调通知 
+
+
+
+
