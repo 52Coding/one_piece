@@ -112,9 +112,25 @@ string.reverse (s)
 
 table，可理解为一种特殊的索引数组，索引可为字串or数字
 table库
+键值对、普通值最好不要混用，要么{"red", "black"}，要么{first="red", second="black"}
+追尾 s[#s+1] = something
+table.getn(tblTest1)
+table.concat (table [, sep [, i [, j ] ] ])     类似hive concat、concat_ws
+table.insert (table, [pos ,] value)     pos默认追加
+table.maxn (table) 返回最大索引编号
+table.remove (table [, pos])
+table.sort (table [, comp]) 默认小到大
+table.new 和 table.clear 预分配和释放
 
+-- ngx_lua 模块提供的带缓存的时间接口
+如 ngx.today, ngx.time, ngx.utctime, ngx.localtime, ngx.now, ngx.http_time，以及 ngx.cookie_time 等。
 
 ############################################ 高阶 
+
+
+
+
+
 
 
 
