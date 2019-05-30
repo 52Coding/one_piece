@@ -127,8 +127,77 @@ table.new 和 table.clear 预分配和释放
 
 ############################################ 高阶 
 
+元方法重载：操作符及取下标等默认行为可自定修改
+面向对象 
+
+############################################## Nginx 相关
+
+# 直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。
+# 这里是直接转发给后端应用服务器了，也可以是一个静态首页
+# 第一个必选规则
+location = / {
+    proxy_pass http://tomcat:8080/index
+}
+
+# 第二个必选规则是处理静态文件请求，这是 nginx 作为 http 服务器的强项
+# 有两种配置模式，目录匹配或后缀匹配，任选其一或搭配使用
+location ^~ /static/ {
+    root /webroot/static/;
+}
+location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
+    root /webroot/res/;
+}
+
+# 第三个规则就是通用规则，用来转发动态请求到后端应用服务器
+# 非静态文件请求就默认是动态请求，自己根据实际把握
+# 毕竟目前的一些框架的流行，带.php、.jsp后缀的情况很少了
+location / {
+    proxy_pass http://tomcat:8080/
+}
+
+redirect 语法
+server {
+    listen 80;
+    server_name start.igrow.cn;
+    index index.html index.php;
+    root html;
+    if ($http_host !~ "^star\.igrow\.cn$") {
+        rewrite ^(.*) http://star.igrow.cn$1 redirect;
+    }
+}
+防盗链
+location ~* \.(gif|jpg|swf)$ {
+    valid_referers none blocked start.igrow.cn sta.igrow.cn;
+    if ($invalid_referer) {
+       rewrite ^/ http://$host/logo.png;
+    }
+}
+根据文件类型设置过期时间
+location ~* \.(js|css|jpg|jpeg|gif|png|swf)$ {
+    if (-f $request_filename) {
+        expires 1h;
+        break;
+    }
+}
+禁止访问某个目录
+location ~* \.(txt|doc)${
+    root /data/www/wwwroot/linuxtone/test;
+    deny all;
+}
+
+-- 为引用静态资源的url添加版本号，解决版本发布后的浏览器缓存问题
+-- 浏览器缓存
+-- Nginx缓存静态资源
+-- nginx cache origin server static resource
+-- load page then js/css/png
+-- one then another.
 
 
+正向代理就像一个跳板机
+
+ip_hash：每个请求按访问 IP 的 hash 结果分配，这样来自同一个 IP 的访客固定访问一个后端服务器，有效解决了动态网页存在的 session 共享问题。
+
+-- 利用Lua进行前置处理，不过后端（高并发）
 
 
 
