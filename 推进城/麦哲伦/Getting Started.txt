@@ -36,6 +36,8 @@ http://localhost:8080/
 ##ps -ef|grep nginx
 #nginx -c conf/nginx.conf -s reload -p `pwd`
 nginx -s reload -p `pwd`
+
+-p prefix       : 设置前缀路径（默认是：/usr/local/nginx/）
 ####################################
 
 Holy shit, This's ugly world!!!
